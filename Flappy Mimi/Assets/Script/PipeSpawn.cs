@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PipeSpawn : MonoBehaviour
 {
@@ -12,18 +13,22 @@ public class PipeSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Spawn the first pillar immediately
         SpawnPillar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer < spawnRate) {
-            timer += Time.deltaTime;
-        }
-        else {
-            SpawnPillar();
-            timer = 0;
+        // Only spawn pillars if the active scene is "gameplay"
+        if (SceneManager.GetActiveScene().name == "gameplay") {
+            if (timer < spawnRate) {
+                timer += Time.deltaTime;
+            }
+            else {
+                SpawnPillar();
+                timer = 0;
+            }
         }
     }
 
